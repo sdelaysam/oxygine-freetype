@@ -59,13 +59,13 @@ public:
 
         //initialize text style
         TextStyle style;
-        style.font = gameResources.getResFont("main")->getFont(0, 64);
-        style.color = Color::White;
+        style.font = gameResources.getResFont("main")->getFont(0, 40);
+        style.color = Color::Crimson;
         style.vAlign = TextStyle::VALIGN_MIDDLE;
         style.hAlign = TextStyle::HALIGN_CENTER;
 
         text->setStyle(style);
-        text->setText(L"Hello World");
+        text->setText("Hello\n World!");
 
         _text = text;
     }
@@ -74,7 +74,7 @@ public:
     {
         //user clicked to button
 
-        //animate button by chaning color
+        //animate button by changing color
         _button->setColor(Color::White);
         _button->addTween(Sprite::TweenColor(Color::Green), 500, 1, true);
 
