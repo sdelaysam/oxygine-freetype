@@ -59,7 +59,12 @@ public:
 
         //initialize text style
         TextStyle style;
-        style.font = gameResources.getResFont("main")->getFont(0, 40);
+#if OXYGINE_VERSION > 3
+        style.font = gameResources.getResFont("main");
+		style.fontSize = 40;
+#else
+		style.font = gameResources.getResFont("main")->getFont(0, 40);
+#endif
         style.color = Color::Crimson;
         style.vAlign = TextStyle::VALIGN_MIDDLE;
         style.hAlign = TextStyle::HALIGN_CENTER;
