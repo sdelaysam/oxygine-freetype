@@ -218,7 +218,7 @@ namespace oxygine
 
 		int error = FT_New_Memory_Face(_library,
 			reinterpret_cast<const unsigned char*>(_fdata.getData()), _fdata.getSize(), 0, &_face);
-
+        OX_ASSERT(!error);
 		//_fonts.push_back(FontFT(this, 32));
 	}
 
