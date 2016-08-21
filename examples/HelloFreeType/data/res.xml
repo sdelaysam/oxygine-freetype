@@ -7,5 +7,5 @@
 	</atlas>
 	
 	<set path = "fonts" />
-	<ftfont id="main" file="Vera.ttf" />
+	<ftfont id="main" file="verdana.ttf" />
 </resources>
