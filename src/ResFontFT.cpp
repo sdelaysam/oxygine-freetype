@@ -140,6 +140,7 @@ namespace oxygine
 			if (src.w && src.h)
 			{
 				mt.init(src.w, src.h, TF_R8G8B8A8);
+
 				ImageData dest = mt.lock();
 				operations::blitPremultiply(src, dest);
 				//PixelA8
@@ -207,8 +208,13 @@ namespace oxygine
 
 	spTexture ResFontFT::createTexture(int w, int h)
 	{
+		MemoryTexture mt;
+		mt.init(512, 256, TF_R8G8B8A8);
+		mt.fill_zero();
+
 		spNativeTexture texture = IVideoDriver::instance->createTexture();
-		texture->init(512, 256, TF_R8G8B8A8);//todo optimal sizes
+		texture->init(mt.lock());
+		
 		return texture;
 	}
 
