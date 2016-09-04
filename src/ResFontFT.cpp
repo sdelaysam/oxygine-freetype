@@ -209,7 +209,7 @@ namespace oxygine
 	spTexture ResFontFT::createTexture(int w, int h)
 	{
 		MemoryTexture mt;
-		mt.init(512, 256, TF_R8G8B8A8);
+		mt.init(512, 512, TF_R8G8B8A8);
 		mt.fill_zero();
 
 		spNativeTexture texture = IVideoDriver::instance->createTexture();
