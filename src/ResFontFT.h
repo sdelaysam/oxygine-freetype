@@ -1,5 +1,5 @@
 #pragma once
-#include "Res/ResFont.h"
+#include "res/ResFont.h"
 #include "utils/AtlasTool.h"
 #include "core/file.h"
 #include <list>
