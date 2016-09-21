@@ -20,6 +20,8 @@ else(EMSCRIPTEN)
 		${CMAKE_CURRENT_SOURCE_DIR}/freetype/win32/freetype.lib)
 endif(EMSCRIPTEN)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+
 include_directories(${OXYGINE_FREETYPE_INCLUDE_DIRS})
 add_library(oxygine-freetype STATIC 
 	src/ResFontFT.cpp 
