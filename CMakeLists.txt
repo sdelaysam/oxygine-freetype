@@ -10,14 +10,15 @@ if (EMSCRIPTEN)
 
 	set(OXYGINEMAGICPARTICLES_LIBS
 		${CMAKE_CURRENT_SOURCE_DIR}/magic_particles/emscripten/libmagic.a)
-
-else(EMSCRIPTEN)
+elseif(MSVC)
 	set(OXYGINE_FREETYPE_INCLUDE_DIRS 
 		${CMAKE_CURRENT_SOURCE_DIR}/src
 		${CMAKE_CURRENT_SOURCE_DIR}/freetype/win32/include)
 
 	set(OXYGINE_FREETYPE_LIBS
 		${CMAKE_CURRENT_SOURCE_DIR}/freetype/win32/freetype.lib)
+else()
+	set(OXYGINE_FREETYPE_LIBS freetype)
 endif(EMSCRIPTEN)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

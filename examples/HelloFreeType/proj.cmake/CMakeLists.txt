@@ -17,4 +17,4 @@ if (WIN32) #disable console mode for VC++
 	set_target_properties(HelloFreeType PROPERTIES WIN32_EXECUTABLE TRUE)
 endif(WIN32)
 
-target_link_libraries(HelloFreeType ${OXYGINE_CORE_LIBS} ${OXYGINE_FREETYPE_LIBS} oxygine-freetype freetype)
+target_link_libraries(HelloFreeType ${OXYGINE_CORE_LIBS} ${OXYGINE_FREETYPE_LIBS} oxygine-freetype)
