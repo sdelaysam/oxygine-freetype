@@ -1,2 +1,3 @@
 examples/HelloFreeType/proj.win32/Debug_v140/
 examples/HelloFreeType/proj.win32/.vs/
+*.VC.db
