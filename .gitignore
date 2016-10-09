@@ -1,3 +1,5 @@
 examples/HelloFreeType/proj.win32/Debug_v140/
 examples/HelloFreeType/proj.win32/.vs/
 *.VC.db
+examples/HelloFreeType/proj.cmake/build_emsc_release/
+examples/HelloFreeType/proj.cmake/data.js
