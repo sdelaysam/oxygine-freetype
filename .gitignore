@@ -8,3 +8,7 @@ examples/HelloFreeType/proj.android/libs/
 examples/HelloFreeType/proj.android/bin/
 examples/HelloFreeType/proj.android/gen/org/oxygine/HelloFreeType/R.java
 examples/HelloFreeType/proj.android/gen/
+examples/HelloFreeType/proj.cmake/build_emsc/
+examples/HelloFreeType/proj.win32/Debug_v*
+*.sdf
+*.opensdf
