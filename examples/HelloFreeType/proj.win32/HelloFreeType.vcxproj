@@ -110,9 +110,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="../src/entry_point.cpp" />
     <ClCompile Include="../src/example.cpp" />
     <ClCompile Include="..\..\..\src\ResFontFT.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="../src/example.h" />

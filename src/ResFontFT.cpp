@@ -106,7 +106,9 @@ namespace oxygine
 		FontFT(ResFontFT *rs, int size) :_rs(rs), _size(size)
 		{
 			init("abc", size, size, size);
+#if !defined(_MSC_VER) ||  (_MSC_VER >= 1900)
 			_glyphs.reserve(100);
+#endif
 		}
 
 	protected:
