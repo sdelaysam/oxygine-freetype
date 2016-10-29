@@ -196,6 +196,7 @@ namespace oxygine
 	void ResFontFT::freeLibrary()
 	{
 		FT_Done_FreeType(_library);
+        Resources::unregisterResourceType("ftfont");
 	}
 
 	ResFontFT::ResFontFT() :_atlas(CLOSURE(this, &ResFontFT::createTexture)), _face(0)
