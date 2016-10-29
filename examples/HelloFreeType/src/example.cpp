@@ -61,9 +61,9 @@ public:
         TextStyle style;
 #if OXYGINE_VERSION > 3
         style.font = gameResources.getResFont("main");
-		style.fontSize = 40;
+        style.fontSize = 40;
 #else
-		style.font = gameResources.getResFont("main")->getFont(0, 40);
+        style.font = gameResources.getResFont("main")->getFont(0, 40);
 #endif
         style.color = Color::Crimson;
         style.vAlign = TextStyle::VALIGN_MIDDLE;
@@ -138,7 +138,7 @@ void example_preinit() {}
 //called from entry_point.cpp
 void example_init()
 {
-	ResFontFT::initLibrary();
+    ResFontFT::initLibrary();
 
     //load xml file with resources definition
     gameResources.loadXML("res.xml");
@@ -163,5 +163,5 @@ void example_destroy()
 {
     //free previously loaded resources
     gameResources.free();
-	ResFontFT::freeLibrary();
+    ResFontFT::freeLibrary();
 }
