@@ -105,6 +105,19 @@ uint32_t decodeSymbol(int sym)
 
 namespace oxygine
 {
+    void ftGenDefault(ImageData& src, MemoryTexture& dest, int code, const glyphOptions& opt)
+    {
+        dest.init(src.w, src.h, TF_R8G8B8A8);
+        operations::blitPremultiply(src, dest.lock());
+    }
+
+    static ResFontFT::ftGenHook _ftGen = ftGenDefault;
+
+    void ResFontFT::setGenHook(ftGenHook f)
+    {
+        _ftGen = f;
+    }
+
     class FontFT : public Font
     {
     public:
@@ -120,7 +133,11 @@ namespace oxygine
     protected:
         ResFontFT* _rs;
         int _size;
+#if OXYGINE_VERSION > 4
+        bool loadGlyph(int code, glyph& g, const glyphOptions& opt) OVERRIDE
+#else
         bool loadGlyph(int code, glyph& g) OVERRIDE
+#endif
         {
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, _size);
@@ -147,17 +164,14 @@ namespace oxygine
             static MemoryTexture mt;
             if (src.w && src.h)
             {
-                mt.init(src.w, src.h, TF_R8G8B8A8);
+#if OXYGINE_VERSION > 4
+                _ftGen(src, mt, code, opt);
+#else
+                _ftGen(src, mt, code, 0);
+#endif
 
-                ImageData dest = mt.lock();
-                operations::blitPremultiply(src, dest);
-                //PixelA8
-
-                _rs->_atlas.add(dest, srcRect, t);
-
+                _rs->_atlas.add(mt.lock(), srcRect, t);
                 OX_ASSERT(t);
-
-
                 g.src = srcRect.cast<RectF>();
                 Vector2 sz((float)t->getWidth(), (float)t->getHeight());
                 g.src.pos = g.src.pos.div(sz);
@@ -169,9 +183,12 @@ namespace oxygine
             g.advance_y = static_cast<short>(slot->advance.y >> 6);
             g.offset_x = slot->bitmap_left;
             g.offset_y = - slot->bitmap_top;
-            g.sh = src.h;
-            g.sw = src.w;
+            g.sw = mt.getWidth();
+            g.sh = mt.getHeight();
             g.ch = code;
+#if OXYGINE_VERSION > 4
+            g.opt = opt;
+#endif
 
             return true;
         }

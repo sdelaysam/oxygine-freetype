@@ -13,12 +13,17 @@ namespace oxygine
 {
     class CreateResourceContext;
     class FontFT;
+    typedef unsigned int glyphOptions;
 
     class ResFontFT : public ResFont
     {
     public:
         static void initLibrary();
         static void freeLibrary();
+
+        typedef void(*ftGenHook)(ImageData& src, class Image& dest, int code, const glyphOptions& opt);
+
+        static void setGenHook(ftGenHook);
 
         ResFontFT();
         ~ResFontFT();

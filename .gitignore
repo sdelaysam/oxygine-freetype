@@ -12,3 +12,4 @@ examples/HelloFreeType/proj.cmake/build_emsc/
 examples/HelloFreeType/proj.win32/Debug_v*
 *.sdf
 *.opensdf
+examples/HelloFreeType/proj.win32/HelloFreeType.suo
