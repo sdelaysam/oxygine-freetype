@@ -108,7 +108,8 @@ namespace oxygine
     void ftGenDefault(ImageData& src, MemoryTexture& dest, int code, const glyphOptions& opt)
     {
         dest.init(src.w, src.h, TF_R8G8B8A8);
-        operations::blitPremultiply(src, dest.lock());
+        ImageData rc = dest.lock();
+        operations::blitPremultiply(src, rc);
     }
 
     static ResFontFT::ftGenHook _ftGen = ftGenDefault;
