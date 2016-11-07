@@ -125,7 +125,13 @@ namespace oxygine
 
         FontFT(ResFontFT* rs, int size) : _rs(rs), _size(size)
         {
-            init("abc", size, size, size);
+            FT_Face face = _rs->_face;
+            FT_Set_Pixel_Sizes(_rs->_face, 0, size);
+            int dist = face->size->metrics.height / 64;
+            int mxadv = dist;// face->size->metrics.max_advance / 64;
+
+            init("abc", size, dist, mxadv);
+
 #if !defined(_MSC_VER) ||  (_MSC_VER >= 1900)
             _glyphs.reserve(100);
 #endif
