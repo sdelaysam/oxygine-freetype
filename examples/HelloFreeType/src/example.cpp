@@ -148,19 +148,25 @@ void myShadowsFilter(ResFontFT::postProcessData& data)
 {
     Image& destIm = *data.dest;
     ImageData& src = *data.src;
-    const glyphOptions& opt = data.opt;
 
-    if (opt == tm_no_shadow)
+    ImageData rc;
+   
+
+    Image tempImage;
+    tempImage.init(src.w, src.h, TF_R8G8B8A8);
+
+    rc = tempImage.lock();
+    operations::blitPremultiply(src, rc);
+
+    src = rc;
+
+    if (data.opt == tm_no_shadow)
     {
-        //if shadows disabled just copy from src to dest with premultiply
-        destIm.init(src.w, src.h, TF_R8G8B8A8);
-        ImageData rc = destIm.lock();
-        operations::blitPremultiply(src, rc);
+        //if shadows disabled
+        destIm.swap(tempImage);
         return;
     }
 
-    //alpha premultiply
-    operations::premultiply(src);
 
     const int xoffset = 4;
     const int yoffset = 3;
@@ -171,14 +177,14 @@ void myShadowsFilter(ResFontFT::postProcessData& data)
     destIm.fill_zero();
 
 
-    ImageData rc = destIm.lock(Rect(xoffset, yoffset, src.w, src.h));
     //copy black image as shadow
+    rc = destIm.lock(Rect(xoffset, yoffset, src.w, src.h));
     operations::blitColored(src, rc, Color(0, 0, 0, 255));
 
     //copy original image
     operations::op_blend_one_invSrcAlpha op;
-    ImageData rc2 = destIm.lock(Rect(0, 0, src.w, src.h));
-    operations::applyOperation(op, src, rc2);
+    rc = destIm.lock(Rect(0, 0, src.w, src.h));
+    operations::applyOperation(op, src, rc);
 }
 
 //called from entry_point.cpp

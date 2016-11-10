@@ -171,6 +171,18 @@ namespace oxygine
             Rect srcRect;
             spTexture t;
 
+
+            g.advance_x = static_cast<short>(slot->advance.x >> 6);
+            g.advance_y = static_cast<short>(slot->advance.y >> 6);
+            g.offset_x = slot->bitmap_left;
+            g.offset_y = -slot->bitmap_top;
+            g.ch = code;
+#if OXYGINE_VERSION > 4
+            g.opt = opt;
+#endif
+
+
+
             static MemoryTexture mt;
             if (src.w && src.h)
             {
@@ -178,7 +190,7 @@ namespace oxygine
                 ResFontFT::postProcessData gd;
                 gd.src = &src;
                 gd.dest = &mt;
-                gd.code = code;
+                gd.gl = &g;
                 gd.opt = opt;
                 _ftGen(gd);
 #else
@@ -194,16 +206,8 @@ namespace oxygine
                 g.texture = safeSpCast<NativeTexture>(t);
             }
 
-            g.advance_x = static_cast<short>(slot->advance.x >> 6);
-            g.advance_y = static_cast<short>(slot->advance.y >> 6);
-            g.offset_x = slot->bitmap_left;
-            g.offset_y = - slot->bitmap_top;
             g.sw = mt.getWidth();
             g.sh = mt.getHeight();
-            g.ch = code;
-#if OXYGINE_VERSION > 4
-            g.opt = opt;
-#endif
 
             return true;
         }

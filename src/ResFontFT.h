@@ -14,6 +14,7 @@ namespace oxygine
     class CreateResourceContext;
     class FontFT;
     class Image;
+    struct glyph;
     typedef unsigned int glyphOptions;
 
     class ResFontFT : public ResFont
@@ -33,8 +34,7 @@ namespace oxygine
             //your value passed to TextStyle/TextField
             glyphOptions opt;
 
-            //glyph code
-            int code;
+            glyph *gl;
         };
         typedef void(*postProcessHook)(postProcessData&);
 
