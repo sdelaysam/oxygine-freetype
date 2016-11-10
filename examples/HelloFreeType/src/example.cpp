@@ -9,6 +9,11 @@ using namespace oxygine;
 //It is important on mobile devices with limited memory and you would load/unload them
 Resources gameResources;
 
+enum TextMode
+{
+    tm_no_shadow,
+    tm_shadow
+};
 
 class MainActor: public Actor
 {
@@ -61,13 +66,17 @@ public:
         TextStyle style;
 #if OXYGINE_VERSION > 3
         style.font = gameResources.getResFont("main");
-        style.fontSize = 40;
+        style.fontSize = 80;
 #else
         style.font = gameResources.getResFont("main")->getFont(0, 40);
 #endif
         style.color = Color::Crimson;
         style.vAlign = TextStyle::VALIGN_MIDDLE;
         style.hAlign = TextStyle::HALIGN_CENTER;
+        style.baselineScale = 0.7f;
+
+        //apply our custom option
+        style.options = tm_shadow;
 
         text->setStyle(style);
         text->setText("Hello\n World!");
@@ -135,10 +144,50 @@ typedef oxygine::intrusive_ptr<MainActor> spMainActor;
 
 void example_preinit() {}
 
+void myShadowsFilter(ResFontFT::postProcessData& data)
+{
+    Image& destIm = *data.dest;
+    ImageData& src = *data.src;
+    const glyphOptions& opt = data.opt;
+
+    if (opt == tm_no_shadow)
+    {
+        //if shadows disabled just copy from src to dest with premultiply
+        destIm.init(src.w, src.h, TF_R8G8B8A8);
+        ImageData rc = destIm.lock();
+        operations::blitPremultiply(src, rc);
+        return;
+    }
+
+    //alpha premultiply
+    operations::premultiply(src);
+
+    const int xoffset = 4;
+    const int yoffset = 3;
+
+    //initialize destination Image with increased size
+    destIm.init(src.w + xoffset, src.h + yoffset, TF_R8G8B8A8);
+    //clear it
+    destIm.fill_zero();
+
+
+    ImageData rc = destIm.lock(Rect(xoffset, yoffset, src.w, src.h));
+    //copy black image as shadow
+    operations::blitColored(src, rc, Color(0, 0, 0, 255));
+
+    //copy original image
+    operations::op_blend_one_invSrcAlpha op;
+    ImageData rc2 = destIm.lock(Rect(0, 0, src.w, src.h));
+    operations::applyOperation(op, src, rc2);
+}
+
 //called from entry_point.cpp
 void example_init()
 {
     ResFontFT::initLibrary();
+
+    //use it for adding shadows
+    ResFontFT::setGlyphPostProcessor(myShadowsFilter);
 
     //load xml file with resources definition
     gameResources.loadXML("res.xml");

@@ -105,16 +105,19 @@ uint32_t decodeSymbol(int sym)
 
 namespace oxygine
 {
-    void ftGenDefault(ImageData& src, MemoryTexture& dest, int code, const glyphOptions& opt)
+    void ftGenDefault(ResFontFT::postProcessData& data)
     {
+        Image& dest = *data.dest;
+        const ImageData& src = *data.src;
+
         dest.init(src.w, src.h, TF_R8G8B8A8);
         ImageData rc = dest.lock();
         operations::blitPremultiply(src, rc);
     }
 
-    static ResFontFT::ftGenHook _ftGen = ftGenDefault;
+    static ResFontFT::postProcessHook _ftGen = ftGenDefault;
 
-    void ResFontFT::setGenHook(ftGenHook f)
+    void ResFontFT::setGlyphPostProcessor(postProcessHook f)
     {
         _ftGen = f;
     }
@@ -172,7 +175,12 @@ namespace oxygine
             if (src.w && src.h)
             {
 #if OXYGINE_VERSION > 4
-                _ftGen(src, mt, code, opt);
+                ResFontFT::postProcessData gd;
+                gd.src = &src;
+                gd.dest = &mt;
+                gd.code = code;
+                gd.opt = opt;
+                _ftGen(gd);
 #else
                 _ftGen(src, mt, code, 0);
 #endif

@@ -13,6 +13,7 @@ namespace oxygine
 {
     class CreateResourceContext;
     class FontFT;
+    class Image;
     typedef unsigned int glyphOptions;
 
     class ResFontFT : public ResFont
@@ -21,9 +22,23 @@ namespace oxygine
         static void initLibrary();
         static void freeLibrary();
 
-        typedef void(*ftGenHook)(ImageData& src, class Image& dest, int code, const glyphOptions& opt);
+        struct postProcessData
+        {
+            //you could modify src pixels too
+            ImageData* src;
 
-        static void setGenHook(ftGenHook);
+            //where you should write result
+            Image* dest;
+
+            //your value passed to TextStyle/TextField
+            glyphOptions opt;
+
+            //glyph code
+            int code;
+        };
+        typedef void(*postProcessHook)(postProcessData&);
+
+        static void setGlyphPostProcessor(postProcessHook);
 
         ResFontFT();
         ~ResFontFT();
