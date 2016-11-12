@@ -34,7 +34,7 @@ namespace oxygine
             //your value passed to TextStyle/TextField
             glyphOptions opt;
 
-            glyph *gl;
+            glyph* gl;
         };
         typedef void(*postProcessHook)(postProcessData&);
 

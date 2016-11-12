@@ -150,7 +150,7 @@ void myShadowsFilter(ResFontFT::postProcessData& data)
     ImageData& src = *data.src;
 
     ImageData rc;
-   
+
 
     Image tempImage;
     tempImage.init(src.w, src.h, TF_R8G8B8A8);
