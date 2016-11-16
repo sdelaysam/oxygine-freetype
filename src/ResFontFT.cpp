@@ -193,8 +193,6 @@ namespace oxygine
                 gd.gl = &g;
                 gd.opt = opt;
                 _ftGen(gd);
-#else
-                _ftGen(src, mt, code, 0);
 #endif
 
                 _rs->_atlas.add(mt.lock(), srcRect, t);
