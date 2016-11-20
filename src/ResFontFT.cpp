@@ -291,6 +291,26 @@ namespace oxygine
         ResFontFT* r = const_cast<ResFontFT*>(this);
         return r->getFont(size);
     }
+#ifdef OX_HAS_GLOBAL_TF_SCALE
+    void ResFontFT::alignSize(float globalScale, int styleFontSize, float& resScale, int& resFontSize) const
+    {
+        int fontSize = styleFontSize;
+
+
+        float fs = fontSize * globalScale;
+        fontSize = fs;
+        const int X = 20;
+        if (fontSize > X)
+        {
+            int x = fontSize % X;
+            if (x)
+                fontSize = fontSize + (X - x);
+        }
+
+        resScale  = (float)fontSize / styleFontSize;
+        resFontSize = fontSize;
+    }
+#endif
 
     void ResFontFT::_load(LoadResourcesContext* context)
     {
