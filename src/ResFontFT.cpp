@@ -292,14 +292,14 @@ namespace oxygine
         return r->getFont(size);
     }
 #ifdef OX_HAS_GLOBAL_TF_SCALE
-    void ResFontFT::alignSize(float globalScale, int styleFontSize, float& resScale, int& resFontSize) const
+    void ResFontFT::alignSize(float worldScale, int styleFontSize, float& resScale, int& resFontSize) const
     {
         int fontSize = styleFontSize;
 
 
-        float fs = fontSize * globalScale;
+        float fs = fontSize * worldScale;
         fontSize = fs;
-        const int X = 20;
+        const int X = 1;
         if (fontSize > X)
         {
             int x = fontSize % X;
