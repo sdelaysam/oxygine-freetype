@@ -12,6 +12,9 @@
 
 FT_Library  _library = 0;
 
+
+const int FT_SNAP_SIZE = 10;
+
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
 typedef unsigned __int32 uint32_t;
@@ -291,25 +294,21 @@ namespace oxygine
         ResFontFT* r = const_cast<ResFontFT*>(this);
         return r->getFont(size);
     }
+
 #ifdef OX_HAS_GLOBAL_TF_SCALE
-    void ResFontFT::alignSize(float worldScale, int styleFontSize, float& resScale, int& resFontSize) const
+    const oxygine::Font* ResFontFT::getClosestFont(float worldScale, int styleFontSize, float& resScale) const
     {
-        int fontSize = styleFontSize;
-
-
-        float fs = fontSize * worldScale;
-        fontSize = fs;
-        const int X = 1;
-        if (fontSize > X)
+        int fontSize = styleFontSize * worldScale;
+        if (fontSize > FT_SNAP_SIZE)
         {
-            int x = fontSize % X;
-            if (x)
-                fontSize = fontSize + (X - x);
+            int x = fontSize + FT_SNAP_SIZE - 1;
+            fontSize = x - (x % FT_SNAP_SIZE);
         }
 
-        resScale  = (float)fontSize / styleFontSize;
-        resFontSize = fontSize;
+        resScale = (float)fontSize / styleFontSize;
+        return getFont(0, fontSize);
     }
+
 #endif
 
     void ResFontFT::_load(LoadResourcesContext* context)

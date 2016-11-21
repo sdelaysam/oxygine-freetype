@@ -48,7 +48,7 @@ namespace oxygine
         const Font* getFont(const char* name, int size) const OVERRIDE;
 
 #ifdef OX_HAS_GLOBAL_TF_SCALE
-        void alignSize(float scale, int fontSize, float& resScale, int& resFontSize) const OVERRIDE;
+        const Font* getClosestFont(float worldScale, int styleFontSize, float& resScale) const OVERRIDE;
 #endif
 
     protected:
