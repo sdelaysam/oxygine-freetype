@@ -7,13 +7,15 @@
 #include "core/ImageDataOperations.h"
 #include "core/VideoDriver.h"
 #include "ft2build.h"
+#include "utils/ImageUtils.h"
+#include "utils/stringUtils.h"
 
 #include FT_FREETYPE_H
 
 FT_Library  _library = 0;
 
 
-const int FT_SNAP_SIZE = 10;
+const int FT_SNAP_SIZE = 1;
 
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
@@ -209,6 +211,10 @@ namespace oxygine
 
             g.sw = mt.getWidth();
             g.sh = mt.getHeight();
+
+            char str[255];
+            safe_sprintf(str, "%d.tga", code);
+            saveImage(mt.lock(), str);
 
             return true;
         }
