@@ -13,7 +13,7 @@
 FT_Library  _library = 0;
 
 
-const int FT_SNAP_SIZE = 10;
+const int FT_SNAP_SIZE = 1000;
 
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
