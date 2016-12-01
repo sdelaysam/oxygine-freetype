@@ -291,7 +291,7 @@ namespace oxygine
 
     const Font* ResFontFT::getFont(const char* name, int size) const
     {
-        OX_ASSERT(size > 0);
+        //OX_ASSERT(size > 0);
         ResFontFT* r = const_cast<ResFontFT*>(this);
         return r->getFont(size);
     }
