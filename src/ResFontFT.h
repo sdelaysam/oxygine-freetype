@@ -35,6 +35,7 @@ namespace oxygine
             glyphOptions opt;
 
             glyph* gl;
+            const FontFT* font;
         };
         typedef void(*postProcessHook)(postProcessData&);
 

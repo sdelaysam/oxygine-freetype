@@ -195,6 +195,7 @@ namespace oxygine
                 gd.dest = &mt;
                 gd.gl = &g;
                 gd.opt = opt;
+                gd.font = this;
                 _ftGen(gd);
 #endif
 
