@@ -13,7 +13,7 @@
 FT_Library  _library = 0;
 
 
-const int FT_SNAP_SIZE = 1000;
+static int FT_SNAP_SIZE = 1000;
 
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
@@ -241,6 +241,16 @@ namespace oxygine
     {
         FT_Done_FreeType(_library);
         Resources::unregisterResourceType("ftfont");
+    }
+
+    int ResFontFT::getSnapSize()
+    {
+        return FT_SNAP_SIZE;
+    }
+
+    void ResFontFT::setSnapSize(int size)
+    {
+        FT_SNAP_SIZE = size;
     }
 
     ResFontFT::ResFontFT() : _atlas(CLOSURE(this, &ResFontFT::createTexture)), _face(0)

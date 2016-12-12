@@ -22,6 +22,8 @@ namespace oxygine
     public:
         static void initLibrary();
         static void freeLibrary();
+        static int  getSnapSize();
+        static void setSnapSize(int size);
 
         struct postProcessData
         {
