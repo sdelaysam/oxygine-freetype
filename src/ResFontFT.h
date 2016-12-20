@@ -13,6 +13,7 @@ namespace oxygine
 {
     class CreateResourceContext;
     class FontFT;
+    class Font;
     class Image;
     struct glyph;
     typedef unsigned int glyphOptions;
@@ -37,7 +38,7 @@ namespace oxygine
             glyphOptions opt;
 
             glyph* gl;
-            const FontFT* font;
+            const Font* font;
         };
         typedef void(*postProcessHook)(postProcessData&);
 
