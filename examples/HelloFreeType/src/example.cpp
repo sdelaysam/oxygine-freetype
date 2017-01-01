@@ -72,7 +72,7 @@ public:
 #endif
         style.color = Color::Crimson;
         style.vAlign = TextStyle::VALIGN_MIDDLE;
-        style.hAlign = TextStyle::HALIGN_CENTER;
+        style.hAlign = TextStyle::HALIGN_MIDDLE;
         style.baselineScale = 0.7f;
 
         //apply our custom option
@@ -136,7 +136,7 @@ public:
 
         //and remove sprite from tree when tweenQueue is empty
         //if you don't hold any references to sprite it would be deleted automatically
-        tweenQueue->setDetachActor(true);
+        tweenQueue->detachWhenDone();
     }
 };
 //declare spMainActor as intrusive_ptr holder of MainActor
