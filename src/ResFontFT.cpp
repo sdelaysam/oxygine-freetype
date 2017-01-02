@@ -310,6 +310,8 @@ namespace oxygine
     const oxygine::Font* ResFontFT::getClosestFont(float worldScale, int styleFontSize, float& resScale) const
     {
         int fontSize = styleFontSize * worldScale;
+        if (!fontSize)
+            return 0;
         if (fontSize > FT_SNAP_SIZE)
         {
             int x = fontSize + FT_SNAP_SIZE - 1;
