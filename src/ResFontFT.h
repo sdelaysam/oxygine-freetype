@@ -25,6 +25,7 @@ namespace oxygine
         static void freeLibrary();
         static int  getSnapSize();
         static void setSnapSize(int size);
+        static void setMaxSnapSize(int size);
 
         struct postProcessData
         {

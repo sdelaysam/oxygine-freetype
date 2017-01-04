@@ -14,6 +14,7 @@ FT_Library  _library = 0;
 
 
 static int FT_SNAP_SIZE = 1000;
+static int FT_MAX_SNAP_SIZE = 200;
 
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
@@ -253,6 +254,11 @@ namespace oxygine
         FT_SNAP_SIZE = size;
     }
 
+    void ResFontFT::setMaxSnapSize(int size)
+    {
+        FT_MAX_SNAP_SIZE = size;
+    }
+
     ResFontFT::ResFontFT() : _atlas(CLOSURE(this, &ResFontFT::createTexture)), _face(0)
     {
         _atlas.init();
@@ -314,6 +320,7 @@ namespace oxygine
         {
             int x = fontSize + FT_SNAP_SIZE - 1;
             fontSize = x - (x % FT_SNAP_SIZE);
+            fontSize = std::min(fontSize, FT_MAX_SNAP_SIZE);
         }
 
         resScale = (float)fontSize / styleFontSize;
