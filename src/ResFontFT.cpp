@@ -10,11 +10,6 @@
 
 #include FT_FREETYPE_H
 
-FT_Library  _library = 0;
-
-
-static int FT_SNAP_SIZE = 1000;
-static int FT_MAX_SNAP_SIZE = 200;
 
 #ifdef _MSC_VER
 typedef unsigned __int8  uint8_t;
@@ -109,6 +104,15 @@ uint32_t decodeSymbol(int sym)
 
 namespace oxygine
 {
+
+    FT_Library  _library = 0;
+
+
+    static int FT_SNAP_SIZE = 1000;
+    static int FT_MAX_SNAP_SIZE = 200;
+    static oxygine::Point FT_ATLAS_SIZE(512, 512);
+
+
     void ftGenDefault(ResFontFT::postProcessData& data)
     {
         Image& dest = *data.dest;
@@ -259,6 +263,11 @@ namespace oxygine
         FT_MAX_SNAP_SIZE = size;
     }
 
+    void ResFontFT::setAtlasSize(int w, int h)
+    {
+        FT_ATLAS_SIZE = Point(w, h);
+    }
+
     ResFontFT::ResFontFT() : _atlas(CLOSURE(this, &ResFontFT::createTexture)), _face(0)
     {
         _atlas.init();
@@ -272,7 +281,7 @@ namespace oxygine
     spTexture ResFontFT::createTexture(int w, int h)
     {
         MemoryTexture mt;
-        mt.init(512, 512, TF_R8G8B8A8);
+        mt.init(FT_ATLAS_SIZE.x, FT_ATLAS_SIZE.y, TF_R8G8B8A8);
         mt.fill_zero();
 
         spNativeTexture texture = IVideoDriver::instance->createTexture();

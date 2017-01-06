@@ -24,8 +24,10 @@ namespace oxygine
         static void initLibrary();
         static void freeLibrary();
         static int  getSnapSize();
+
         static void setSnapSize(int size);
         static void setMaxSnapSize(int size);
+        static void setAtlasSize(int w, int h);
 
         struct postProcessData
         {
