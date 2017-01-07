@@ -174,7 +174,7 @@ void myShadowsFilter(ResFontFT::postProcessData& data)
     //initialize destination Image with increased size
     destIm.init(src.w + xoffset, src.h + yoffset, TF_R8G8B8A8);
     //clear it
-    destIm.fill_zero();
+    destIm.fillZero();
 
 
     //copy black image as shadow

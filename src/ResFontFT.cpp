@@ -282,7 +282,7 @@ namespace oxygine
     {
         MemoryTexture mt;
         mt.init(FT_ATLAS_SIZE.x, FT_ATLAS_SIZE.y, TF_R8G8B8A8);
-        mt.fill_zero();
+        mt.fillZero();
 
         spNativeTexture texture = IVideoDriver::instance->createTexture();
         texture->init(mt.lock());
@@ -324,7 +324,7 @@ namespace oxygine
 #ifdef OX_HAS_GLOBAL_TF_SCALE
     const oxygine::Font* ResFontFT::getClosestFont(float worldScale, int styleFontSize, float& resScale) const
     {
-        int fontSize = styleFontSize * worldScale;
+        int fontSize = (int)(styleFontSize * worldScale);
         if (!fontSize)
             return 0;
         if (fontSize > FT_SNAP_SIZE)
