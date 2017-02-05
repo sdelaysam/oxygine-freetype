@@ -13,3 +13,5 @@ examples/HelloFreeType/proj.win32/Debug_v*
 *.sdf
 *.opensdf
 examples/HelloFreeType/proj.win32/HelloFreeType.suo
+examples/HelloFreeType/proj.android/build/
+examples/HelloFreeType/proj.android/.gradle/
