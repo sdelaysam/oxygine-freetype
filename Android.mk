@@ -14,7 +14,7 @@ LOCAL_MODULE_FILENAME := liboxygine-freetype
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../oxygine-framework/oxygine/src/ \
 					$(LOCAL_PATH)/../SDL/include \
-					$(LOCAL_PATH)/freetype/android/include/freetype2
+					$(LOCAL_PATH)/freetype/android/include
 
 
 LOCAL_SRC_FILES :=  src/ResFontFT.cpp
