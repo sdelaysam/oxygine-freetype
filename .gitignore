@@ -15,3 +15,4 @@ examples/HelloFreeType/proj.win32/Debug_v*
 examples/HelloFreeType/proj.win32/HelloFreeType.suo
 examples/HelloFreeType/proj.android/build/
 examples/HelloFreeType/proj.android/.gradle/
+examples/HelloFreeType/data/*.dll
