@@ -52,18 +52,15 @@ namespace oxygine
 
         void init(const std::string& fnt);
 
-        const Font* getFont(const char* name, int size) const OVERRIDE;
-
-#ifdef OX_HAS_GLOBAL_TF_SCALE
-        const Font* getClosestFont(float worldScale, int styleFontSize, float& resScale) const OVERRIDE;
-#endif
+        const Font* getFont(const char* name, int size) const override;
+        const Font* getClosestFont(float worldScale, int styleFontSize, float& resScale) const override;
 
     protected:
         friend class FontFT;
 
         static Resource* createResource(CreateResourceContext& context);
-        void _load(LoadResourcesContext* context) OVERRIDE;
-        void _unload() OVERRIDE;
+        void _load(LoadResourcesContext* context) override;
+        void _unload() override;
 
         Font* getFont(int size);
 

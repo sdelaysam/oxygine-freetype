@@ -151,11 +151,7 @@ namespace oxygine
     protected:
         ResFontFT* _rs;
         int _size;
-#if OXYGINE_VERSION > 4
-        bool loadGlyph(int code, glyph& g, const glyphOptions& opt) OVERRIDE
-#else
-        bool loadGlyph(int code, glyph& g) OVERRIDE
-#endif
+        bool loadGlyph(int code, glyph& g, const glyphOptions& opt) override
         {
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, _size);
@@ -185,16 +181,11 @@ namespace oxygine
             g.offset_x = slot->bitmap_left;
             g.offset_y = -slot->bitmap_top;
             g.ch = code;
-#if OXYGINE_VERSION > 4
             g.opt = opt;
-#endif
-
-
 
             static MemoryTexture mt;
             if (src.w && src.h)
             {
-#if OXYGINE_VERSION > 4
                 ResFontFT::postProcessData gd;
                 gd.src = &src;
                 gd.dest = &mt;
@@ -202,7 +193,6 @@ namespace oxygine
                 gd.opt = opt;
                 gd.font = this;
                 _ftGen(gd);
-#endif
 
                 _rs->_atlas.add(mt.lock(), srcRect, t);
                 OX_ASSERT(t);
@@ -321,7 +311,6 @@ namespace oxygine
         return r->getFont(size);
     }
 
-#ifdef OX_HAS_GLOBAL_TF_SCALE
     const oxygine::Font* ResFontFT::getClosestFont(float worldScale, int styleFontSize, float& resScale) const
     {
         int fontSize = (int)(styleFontSize * worldScale);
@@ -337,8 +326,6 @@ namespace oxygine
         resScale = (float)fontSize / styleFontSize;
         return getFont(0, fontSize);
     }
-
-#endif
 
     void ResFontFT::_load(LoadResourcesContext* context)
     {
