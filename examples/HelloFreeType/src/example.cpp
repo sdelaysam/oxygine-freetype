@@ -11,8 +11,9 @@ Resources gameResources;
 
 enum TextMode
 {
-    tm_no_shadow,
-    tm_shadow
+    tm_no_shadow = 0,
+    tm_shadow = 1,
+    tm_shadow2 = 2,
 };
 
 class MainActor: public Actor
@@ -79,7 +80,7 @@ public:
         style.options = tm_shadow;
 
         text->setStyle(style);
-        text->setText("Hello\n World!");
+        text->setHtmlText("Hello\n <div opt='2'>World!</div>");
 
         _text = text;
     }
@@ -97,7 +98,7 @@ public:
         _text->addTween(Actor::TweenScale(1.1f), 500, 1, true);
 
         //and change text
-        _text->setText("Clicked!");
+        _text->setHtmlText("Clicked!");
 
         //lets create and run sprite with simple animation
         runSprite();
@@ -179,7 +180,9 @@ void myShadowsFilter(ResFontFT::postProcessData& data)
 
     //copy black image as shadow
     rc = destIm.lock(Rect(xoffset, yoffset, src.w, src.h));
-    operations::blitColored(src, rc, Color(0, 0, 0, 255));
+
+    Color shadowColor = data.opt == tm_shadow ? Color(0, 0, 0, 255) : Color(255, 0, 0, 255);
+    operations::blitColored(src, rc, shadowColor);
 
     //copy original image
     operations::op_blend_one_invSrcAlpha op;
