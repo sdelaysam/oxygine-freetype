@@ -1,7 +1,7 @@
 #pragma once
-#include "res/ResFont.h"
-#include "utils/AtlasTool.h"
-#include "core/file.h"
+#include "oxygine/res/ResFont.h"
+#include "oxygine/utils/AtlasBuilder.h"
+#include "oxygine/core/file.h"
 #include <list>
 
 extern "C"

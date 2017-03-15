@@ -1,11 +1,11 @@
 #include "ResFontFT.h"
-#include "res/Resources.h"
-#include "Font.h"
-#include "res/CreateResourceContext.h"
-#include "core/NativeTexture.h"
-#include "MemoryTexture.h"
-#include "core/ImageDataOperations.h"
-#include "core/VideoDriver.h"
+#include "oxygine/res/Resources.h"
+#include "oxygine/Font.h"
+#include "oxygine/res/CreateResourceContext.h"
+#include "oxygine/core/NativeTexture.h"
+#include "oxygine/MemoryTexture.h"
+#include "oxygine/core/ImageDataOperations.h"
+#include "oxygine/core/VideoDriver.h"
 #include "ft2build.h"
 
 #include FT_FREETYPE_H
