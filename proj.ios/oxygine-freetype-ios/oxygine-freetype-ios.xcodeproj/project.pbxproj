@@ -94,7 +94,7 @@
 		AD1344931D4AFCDB00D65B88 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "denis-mac";
 				TargetAttributes = {
 					AD13449A1D4AFCDB00D65B88 = {
@@ -260,6 +260,7 @@
 				AD1344A61D4AFCDB00D65B88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
