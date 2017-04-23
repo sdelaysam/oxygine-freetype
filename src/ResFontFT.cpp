@@ -138,7 +138,7 @@ namespace oxygine
         {
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, size);
-            int dist = face->size->metrics.height / 64;
+            int dist = (int)(face->size->metrics.height / 64);
             int mxadv = dist;// face->size->metrics.max_advance / 64;
 
             init("abc", size, dist, mxadv);
