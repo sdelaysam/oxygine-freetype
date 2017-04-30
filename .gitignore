@@ -16,3 +16,5 @@ examples/HelloFreeType/proj.win32/HelloFreeType.suo
 examples/HelloFreeType/proj.android/build/
 examples/HelloFreeType/proj.android/.gradle/
 examples/HelloFreeType/data/*.dll
+examples/HelloFreeType/proj.win32/Release_v141/
+examples/HelloFreeType/Release_v141/
