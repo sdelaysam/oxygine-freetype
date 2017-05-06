@@ -136,6 +136,8 @@ namespace oxygine
 
         FontFT(ResFontFT* rs, int size) : _rs(rs), _size(size)
         {
+            _ignoreOptions = false;
+
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, size);
             int dist = (int)(face->size->metrics.height / 64);
