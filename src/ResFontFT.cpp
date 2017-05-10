@@ -130,12 +130,16 @@ namespace oxygine
         _ftGen = f;
     }
 
+    Image tempImage;
+
     class FontFT : public Font
     {
     public:
 
         FontFT(ResFontFT* rs, int size) : _rs(rs), _size(size)
         {
+            _ignoreOptions = false;
+
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, size);
             int dist = (int)(face->size->metrics.height / 64);
@@ -183,18 +187,18 @@ namespace oxygine
             g.ch = code;
             g.opt = opt;
 
-            static MemoryTexture mt;
+            
             if (src.w && src.h)
             {
                 ResFontFT::postProcessData gd;
                 gd.src = &src;
-                gd.dest = &mt;
+                gd.dest = &tempImage;
                 gd.gl = &g;
                 gd.opt = opt;
                 gd.font = this;
                 _ftGen(gd);
 
-                _rs->_atlas.add(mt.lock(), srcRect, t);
+                _rs->_atlas.add(tempImage.lock(), srcRect, t);
                 OX_ASSERT(t);
                 g.src = srcRect.cast<RectF>();
                 Vector2 sz((float)t->getWidth(), (float)t->getHeight());
@@ -203,8 +207,8 @@ namespace oxygine
                 g.texture = safeSpCast<NativeTexture>(t);
             }
 
-            g.sw = mt.getWidth();
-            g.sh = mt.getHeight();
+            g.sw = tempImage.getWidth();
+            g.sh = tempImage.getHeight();
 
             return true;
         }
@@ -270,7 +274,7 @@ namespace oxygine
 
     spTexture ResFontFT::createTexture(int w, int h)
     {
-        MemoryTexture mt;
+        Image mt;
         mt.init(FT_ATLAS_SIZE.x, FT_ATLAS_SIZE.y, TF_R8G8B8A8);
         mt.fillZero();
 
