@@ -3,7 +3,7 @@
 #include "oxygine/Font.h"
 #include "oxygine/res/CreateResourceContext.h"
 #include "oxygine/core/NativeTexture.h"
-#include "oxygine/MemoryTexture.h"
+#include "oxygine/Image.h"
 #include "oxygine/core/ImageDataOperations.h"
 #include "oxygine/core/VideoDriver.h"
 #include "ft2build.h"
