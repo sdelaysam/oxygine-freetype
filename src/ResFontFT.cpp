@@ -187,7 +187,7 @@ namespace oxygine
             g.ch = code;
             g.opt = opt;
 
-            
+
             if (src.w && src.h)
             {
                 ResFontFT::postProcessData gd;
