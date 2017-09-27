@@ -16,8 +16,8 @@ namespace oxygine
     class Font;
     class Image;
     struct glyph;
-    typedef unsigned int glyphOptions;
-
+    typedef size_t glyphOptions;
+    
     class ResFontFT : public ResFont
     {
     public:
@@ -73,4 +73,8 @@ namespace oxygine
         fonts _fonts;
         file::buffer _fdata;
     };
+
+
+    
+    void ftGenDefault(ResFontFT::postProcessData& data);
 }
