@@ -138,6 +138,9 @@ namespace oxygine
 
         FontFT(ResFontFT* rs, int size) : _rs(rs), _size(size)
         {
+            OX_ASSERT(size > 0);
+            if (size <= 0)
+                size = 10;
             _ignoreOptions = false;
 
             FT_Face face = _rs->_face;
