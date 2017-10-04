@@ -299,6 +299,10 @@ namespace oxygine
 
     Font* ResFontFT::getFont(int size)
     {
+        OX_ASSERT(size >= 0);
+        if (size <= 0)
+            size = 10;
+
         for (fonts::iterator i = _fonts.begin(); i != _fonts.end(); ++i)
         {
             FontFT& f = *i;
