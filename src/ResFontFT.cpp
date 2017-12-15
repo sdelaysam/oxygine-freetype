@@ -142,10 +142,10 @@ namespace oxygine
 
             FT_Face face = _rs->_face;
             FT_Set_Pixel_Sizes(_rs->_face, 0, size);
-            int dist = (int)(face->size->metrics.height / 64);
-            int mxadv = dist;// face->size->metrics.max_advance / 64;
+            int lineHeight = (int)(face->size->metrics.height / 64);
+            int lineGap = (int)(face->size->metrics.height / 64);
 
-            init("abc", size, dist, mxadv);
+            init("abc", size, lineHeight, lineGap);
 
 #if !defined(_MSC_VER) ||  (_MSC_VER >= 1900)
             _glyphs.reserve(100);
@@ -182,8 +182,8 @@ namespace oxygine
 
             g.advance_x = static_cast<short>(slot->advance.x >> 6);
             g.advance_y = static_cast<short>(slot->advance.y >> 6);
-            g.offset_x = slot->bitmap_left;
-            g.offset_y = -slot->bitmap_top;
+            g.offset_x = slot->metrics.horiBearingX >> 6;
+            g.offset_y = (-slot->metrics.horiBearingY + face->size->metrics.descender) >> 6;
             g.ch = code;
             g.opt = opt;
 
@@ -317,18 +317,21 @@ namespace oxygine
 
     const oxygine::Font* ResFontFT::getClosestFont(float worldScale, int styleFontSize, float& resScale) const
     {
-        int fontSize = (int)(styleFontSize * worldScale);
+        float fontSize = styleFontSize * worldScale;
         if (!fontSize)
             return 0;
         if (fontSize > FT_SNAP_SIZE)
         {
-            int x = fontSize + FT_SNAP_SIZE - 1;
+            int x = (int)fontSize + FT_SNAP_SIZE - 1;
             fontSize = x - (x % FT_SNAP_SIZE);
-            fontSize = std::min(fontSize, FT_MAX_SNAP_SIZE);
+            fontSize = std::fminf(fontSize, FT_MAX_SNAP_SIZE);
         }
 
-        resScale = (float)fontSize / styleFontSize;
-        return getFont(0, fontSize);
+        int loadSize = (int) fontSize;
+        float roundScale = fontSize / loadSize;
+
+        resScale = fontSize / (styleFontSize * roundScale);
+        return getFont(0, loadSize);
     }
 
     void ResFontFT::_load(LoadResourcesContext* context)
